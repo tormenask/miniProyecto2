@@ -1,13 +1,20 @@
-import { Navigate, Outlet } from 'react-router-dom';
-import { useAuth } from '@/modules/auth/store/AuthContext';
+import { Navigate, Outlet } from "react-router-dom";
+
+import { useAuth } from "@/modules/auth/hooks/useAuth";
 
 export const ProtectedRoute = () => {
-  const { user, loading } = useAuth();
+  const { loading, isAuthenticated } = useAuth();
 
-  if (loading) return <div className="flex h-screen items-center justify-center dark:text-white">Cargando...</div>;
-  if (!user) return <Navigate to="/login" replace />;
-  // Si falta el username, es que ingresó con google y no completó su perfil
-  if (user && !user.username) return <Navigate to="/complete-profile" replace />;
+  if (loading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        Cargando...
+      </div>
+    );
+  }
 
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
   return <Outlet />;
 };
