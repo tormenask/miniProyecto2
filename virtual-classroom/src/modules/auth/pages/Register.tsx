@@ -4,6 +4,7 @@ import { Button } from "@/shared/ui/Button";
 import { Input } from "@/shared/ui/Input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui/Card";
 import { useAuth } from "../store/AuthContext";
+import { API_ROUTES } from "@/shared/constants/api";
 
 export const Register = () => {
   const { setUser } = useAuth();
@@ -30,7 +31,7 @@ export const Register = () => {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:4000/api/auth/register", {
+      const res = await fetch(API_ROUTES.AUTH.REGISTER, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

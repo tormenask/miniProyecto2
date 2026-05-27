@@ -4,6 +4,7 @@ import { Button } from "@/shared/ui/Button";
 import { Input } from "@/shared/ui/Input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui/Card";
 import { useAuth } from "../store/AuthContext";
+import { API_ROUTES } from "@/shared/constants/api";
 
 export const Login = () => {
   const { setUser } = useAuth();
@@ -20,7 +21,7 @@ export const Login = () => {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:4000/api/auth/login", {
+      const res = await fetch(API_ROUTES.AUTH.LOGIN, {
         method: "POST",
 
         headers: {

@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui/Card";
 import { useAuth } from "@/modules/auth/store/AuthContext";
 import { Video, Plus, LogOut } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { API_ROUTES } from "@/shared/constants/api";
 
 interface RoomData {
   id: string;
@@ -19,7 +20,7 @@ export const Dashboard = () => {
   useEffect(() => {
     const token = localStorage.getItem("virtual_class_token");
 
-    fetch("http://localhost:4000/api/rooms", {
+    fetch(API_ROUTES.ROOMS.GET_ALL, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
