@@ -1,12 +1,6 @@
-import {
-  createContext,
-  useState,
-} from "react";
+import { createContext, useState } from "react";
 
-import type {
-  User,
-  AuthResponse,
-} from "../types";
+import type { User, AuthResponse } from "../types";
 
 import {
   clearAuthStorage,
@@ -23,32 +17,33 @@ interface AuthContextProps {
 
   isAuthenticated: boolean;
 
-  login: (
-    data: AuthResponse
-  ) => void;
+  login: (data: AuthResponse) => void;
 
   logout: () => void;
 }
 
-export const AuthContext =
-  createContext<AuthContextProps>(
-    {} as AuthContextProps
-  );
+export const AuthContext = createContext<AuthContextProps>(
+  {} as AuthContextProps,
+);
 
-export const AuthProvider = ({
-  children,
-}: React.PropsWithChildren) => {
-  const [user, setUser] =
-    useState<User | null>(() => {
-      return getUser();
-    });
+export const AuthProvider = ({ children }: React.PropsWithChildren) => {
+  const [user, setUser] = useState<User | null>(() => {
+    return getUser();
+  });
 
-  const [loading] =
-    useState(false);
+  const [loading] = useState(false);
 
-  const login = (
-    data: AuthResponse
-  ): void => {
+  const login = (data: AuthResponse): void => {
+    // Verificamos si data.data existe antes de operar con él
+    if (!data.data) {
+      console.error(
+        "No se pudo iniciar sesión: Datos de autenticación vacíos.",
+        data.error,
+      );
+      return;
+    }
+
+    // Aquí TypeScript ya sabe con 100% de certeza que data.data NO es null
     saveToken(data.data.token);
     saveUser(data.data.user);
     setUser(data.data.user);
@@ -64,8 +59,7 @@ export const AuthProvider = ({
       value={{
         user,
         loading,
-        isAuthenticated:
-          !!getToken() && !!user,
+        isAuthenticated: !!getToken() && !!user,
         login,
         logout,
       }}
