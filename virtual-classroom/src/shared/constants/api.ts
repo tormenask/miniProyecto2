@@ -10,6 +10,8 @@ export const API_ROUTES = {
     REFRESH_TOKEN: `${BASE_URL}/auth/refresh-token`,
     ME: `${BASE_URL}/auth/me`,
     FORGOT_PASSWORD: `${BASE_URL}/auth/forgot-password`,
+    GOOGLE_CHECK: `${BASE_URL}/auth/google/check`,
+    GOOGLE_REGISTER: `${BASE_URL}/auth/google/register`,
   },
   ROOMS: {
     BASE: `${BASE_URL}/rooms`,

@@ -1,4 +1,13 @@
-import type { Timestamp } from "firebase/firestore/lite";
+export interface User {
+  uid: string;
+  names: string;
+  lastNames?: string;
+  username: string;
+  email: string;
+  avatar?: string;
+  role: "ADMIN" | "PARTICIPANT";
+  provider?: "email" | "google";
+}
 
 export interface LoginDto {
   email: string;
@@ -7,29 +16,51 @@ export interface LoginDto {
 
 export interface RegisterDto {
   names: string;
-  username: string;
   lastNames: string;
+  username: string;
   email: string;
   password: string;
-  confirmPassword: string;
-  avatar: string;
+  avatar?: string;
+  role: "ADMIN" | "PARTICIPANT";
 }
 
-export interface User {
+export interface GoogleRegisterData {
   uid: string;
   names: string;
-  lastNames: string;
   username: string;
   email: string;
-  avatar: string;
-  role: 'ADMIN' | 'PARTICIPANT';
-  createdAt: Timestamp | Date;
+  avatar?: string;
 }
 
-export interface AuthResponse {
-  data: {
-    token: string;
-    user: User;
-  } | null;
-  error: string | null;
+/* =========================================
+   API GENERIC RESPONSE
+========================================= */
+
+export interface ApiResponse<T> {
+  success: boolean;
+  message?: string;
+  data: T;
 }
+
+/* =========================================
+   AUTH RESPONSE
+========================================= */
+
+export interface AuthData {
+  token: string;
+  user: User;
+}
+
+export type AuthResponse = ApiResponse<AuthData>;
+
+/* =========================================
+   GOOGLE CHECK RESPONSE
+========================================= */
+
+export interface GoogleCheckData {
+  exists: boolean;
+  token?: string;
+  user?: User;
+}
+
+export type GoogleCheckResponse = ApiResponse<GoogleCheckData>;
