@@ -15,7 +15,22 @@ const loginSchema = z.object({
   password: z.string().min(6)
 })
 
+const googleCheckSchema = z.object({
+  uid: z.string().min(1)
+})
+
+const googleRegisterSchema =
+  z.object({
+    uid: z.string().min(1),
+    names: z.string().min(2),
+    username: z.string().min(3),
+    email: z.string().email(),
+    avatar: z.string().optional()
+  })
+
 module.exports = {
   registerSchema,
-  loginSchema
+  loginSchema,
+  googleCheckSchema,
+  googleRegisterSchema
 }
