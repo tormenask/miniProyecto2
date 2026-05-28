@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { registerRequest } from "../services/auth.service";
-
 import { useAuth } from "./useAuth";
+import type { RegisterDto } from "../types";
 
 export const useRegister = () => {
   const navigate = useNavigate();
@@ -28,8 +27,6 @@ export const useRegister = () => {
     });
   };
 
-
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -40,20 +37,16 @@ export const useRegister = () => {
 
     try {
       setLoading(true);
-
-      // Creamos un objeto JSON tradicional con todos los campos
-      const payload = {
+      const payload: RegisterDto = {
         names: form.names,
         lastNames: form.lastNames,
         username: form.username,
         email: form.email,
         password: form.password,
         role: "PARTICIPANT",
-        confirmPassword: form.confirmPassword,
         avatar: form.avatarPreview || "",
       };
 
-      // registerRequest procesará esto como un JSON normal (aplicación/json)
       const data = await registerRequest(payload);
 
       login(data);
