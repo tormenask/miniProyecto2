@@ -1,10 +1,6 @@
-import { useRef, type ChangeEvent } from "react";
-
-import { User, Mail, Lock, Upload } from "lucide-react";
-
+import { User, Mail, Lock } from "lucide-react";
 import { useRegister } from "../hooks/useRegister";
 
-/* ── Google icon ─────────────────────────────────────────────────────── */
 const GoogleIcon = () => (
   <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true">
     <path
@@ -26,7 +22,7 @@ const GoogleIcon = () => (
   </svg>
 );
 
-/* ── Helpers ─────────────────────────────────────────────────────────── */
+
 const Label = ({ text, required }: { text: string; required?: boolean }) => (
   <label className="mb-1.5 block text-sm font-medium text-slate-700">
     {text}
@@ -43,17 +39,10 @@ const inputWithIcon =
 
 /* ── Component ───────────────────────────────────────────────────────── */
 export const RegisterForm = () => {
-  const fileRef = useRef<HTMLInputElement>(null);
 
-  const { form, loading, handleChange, handleFileChange, handleSubmit } =
+  const { form, loading, handleChange, handleSubmit } =
     useRegister();
-  function handleFile(event: ChangeEvent<HTMLInputElement>): void {
-    const file = event.target.files?.[0];
-    if (!file) return;
-
-    // 2. Le pasas el archivo directamente al hook, él se encarga del resto
-    handleFileChange(file);
-  }
+  
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-5">
       {/* Google */}
@@ -76,41 +65,6 @@ export const RegisterForm = () => {
         <div className="h-px flex-1 bg-slate-200" />
       </div>
 
-      {/* Avatar */}
-      <div>
-        <Label text="Foto de Perfil (Opcional)" />
-
-        <div className="flex items-center gap-3">
-          <div className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-full bg-slate-100 ring-1 ring-slate-200">
-            {form.avatarPreview ? (
-              <img
-                src={form.avatarPreview}
-                alt="Avatar"
-                className="h-full w-full object-cover"
-              />
-            ) : (
-              <User size={22} strokeWidth={1.5} className="text-slate-400" />
-            )}
-          </div>
-
-          <button
-            type="button"
-            onClick={() => fileRef.current?.click()}
-            className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm transition hover:bg-slate-50 active:scale-[0.98]"
-          >
-            <Upload size={14} />
-            Subir Imagen
-          </button>
-
-          <input
-            ref={fileRef}
-            type="file"
-            accept="image/*"
-            className="hidden"
-            onChange={handleFile}
-          />
-        </div>
-      </div>
 
       {/* Names */}
       <div className="grid grid-cols-2 gap-3">

@@ -28,17 +28,7 @@ export const useRegister = () => {
     });
   };
 
-  const handleFileChange = (file: File) => {
-    const reader = new FileReader();
-    reader.onload = () => {
-      setForm((prev) => ({
-        ...prev,
-        avatarPreview: reader.result as string,
-        avatarFile: file,
-      }));
-    };
-    reader.readAsDataURL(file);
-  };
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -60,7 +50,6 @@ export const useRegister = () => {
         password: form.password,
         role: "PARTICIPANT",
         confirmPassword: form.confirmPassword,
-        // Enviamos el string Base64 generado por el FileReader (o vacío si no subió nada)
         avatar: form.avatarPreview || "",
       };
 
@@ -80,7 +69,6 @@ export const useRegister = () => {
     form,
     loading,
     handleChange,
-    handleFileChange,
     handleSubmit,
   };
 };
