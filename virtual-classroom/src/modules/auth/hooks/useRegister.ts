@@ -18,6 +18,9 @@ export const useRegister = () => {
     lastNames: "",
     email: "",
     password: "",
+    username: "",
+    confirmPassword: "",
+    avatar: "",
   });
 
   const handleChange = (

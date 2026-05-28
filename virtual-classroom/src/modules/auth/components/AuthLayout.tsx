@@ -1,11 +1,13 @@
-import type { PropsWithChildren } from "react";
+import type { ReactNode } from "react";
 
-export const AuthLayout = ({
-  children,
-}: PropsWithChildren) => {
+interface Props {
+  children: ReactNode;
+}
+
+export const AuthLayout = ({ children }: Props) => {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-slate-100 px-4">
-      <div className="w-full max-w-md rounded-3xl bg-white p-8 shadow-xl">
+    <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
+      <div className="w-full max-w-xl bg-white rounded-2xl shadow-sm border border-slate-200 p-8">
         {children}
       </div>
     </div>

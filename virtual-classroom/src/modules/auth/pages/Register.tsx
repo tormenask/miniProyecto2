@@ -6,10 +6,9 @@ export const Register = () => {
   return (
     <AuthLayout>
       <AuthHeader
-        title="Crear cuenta"
-        subtitle="Regístrate para continuar"
+        title="Crear Cuenta"
+        subtitle="Únete a nuestra comunidad de estudiantes"
       />
-
       <RegisterForm />
     </AuthLayout>
   );
