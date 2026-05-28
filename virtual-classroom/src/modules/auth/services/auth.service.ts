@@ -30,6 +30,7 @@ export const loginRequest = async (
   return response.json();
 };
 
+
 export const registerRequest = async (
   payload: RegisterDto
 ): Promise<AuthResponse> => {
@@ -38,17 +39,17 @@ export const registerRequest = async (
     {
       method: "POST",
       headers: {
-        "Content-Type":
-          "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(payload),
     }
   );
 
   if (!response.ok) {
-    throw new Error(
-      "Error registrando usuario"
-    );
+    // Para ver el detalle del error de Zod directamente en la consola del navegador
+    const errorData = await response.json().catch(() => ({}));
+    console.error("Detalles del error del servidor:", errorData);
+    throw new Error("Error registrando usuario");
   }
 
   return response.json();
