@@ -1,16 +1,11 @@
-import {
-  Video,
-  LogOut,
-  UserCircle,
-} from "lucide-react";
+import { Video, LogOut, UserCircle } from "lucide-react";
 
 import { useAuth } from "@/modules/auth/hooks/useAuth";
 
 export const DashboardHeader = () => {
   const { user, logout } = useAuth();
 
-  const fullName =
-    `${user?.names ?? ""} ${user?.lastNames ?? ""}`.trim();
+  const fullName = `${user?.names ?? ""} ${user?.lastNames ?? ""}`.trim();
 
   return (
     <header className="sticky top-0 z-20 h-16 border-b border-slate-200 bg-white px-8">
@@ -39,9 +34,13 @@ export const DashboardHeader = () => {
           <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-blue-200 bg-blue-50 text-blue-600">
             {user?.avatar ? (
               <img
-                src={user.avatar}
-                alt={fullName}
-                className="h-full w-full object-cover"
+                src={
+                  user.avatar ||
+                  `https://api.dicebear.com/9.x/initials/svg?seed=${user.username}`
+                }
+                alt={user.username}
+                referrerPolicy="no-referrer"
+                className="h-full w-full rounded-full object-cover"
               />
             ) : (
               <UserCircle size={20} />

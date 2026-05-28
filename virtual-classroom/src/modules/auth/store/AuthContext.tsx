@@ -12,13 +12,9 @@ import {
 
 interface AuthContextProps {
   user: User | null;
-
   loading: boolean;
-
   isAuthenticated: boolean;
-
   login: (data: AuthResponse) => void;
-
   logout: () => void;
 }
 
@@ -34,16 +30,14 @@ export const AuthProvider = ({ children }: React.PropsWithChildren) => {
   const [loading] = useState(false);
 
   const login = (data: AuthResponse): void => {
-    // Verificamos si data.data existe antes de operar con él
     if (!data.data) {
       console.error(
         "No se pudo iniciar sesión: Datos de autenticación vacíos.",
-        data.error,
+        data,
       );
       return;
     }
 
-    // Aquí TypeScript ya sabe con 100% de certeza que data.data NO es null
     saveToken(data.data.token);
     saveUser(data.data.user);
     setUser(data.data.user);

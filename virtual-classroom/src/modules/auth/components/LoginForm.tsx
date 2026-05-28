@@ -4,6 +4,7 @@ import { Input } from "@/shared/ui/Input";
 import { Button } from "@/shared/ui/Button";
 
 import { useLogin } from "../hooks/useLogin";
+import { GoogleButton } from "./GoogleButton";
 
 export const LoginForm = () => {
   const {
@@ -18,6 +19,7 @@ export const LoginForm = () => {
       onSubmit={handleSubmit}
       className="space-y-4"
     >
+      <GoogleButton/>
       <Input
         name="email"
         type="email"
